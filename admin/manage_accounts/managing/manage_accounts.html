@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Students</title>
+</head>
+
+<body>
+
+    <!-- MAIN CONTAINER -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="10">
+
+        <!-- HEADER -->
+        <tr>
+            <td colspan="4" bgcolor="#c5c9ed">
+
+                <table width="100%" border="0">
+                    <tr>
+                        <td width="15%">
+                            <h2>&#9776;</h2>
+                        </td>
+
+                        <td align="center">
+                            <h2>Manage Students</h2>
+                        </td>
+
+                        <td width="15%" align="right">
+                            <h2>&#128276;</h2>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+
+
+        <!-- UNVALIDATED ACCOUNTS -->
+        <tr>
+            <td colspan="4">
+
+                <h3>List of Students (Unvalidated Accounts)</h3>
+
+                <table width="100%" border="1"
+                       cellspacing="0" cellpadding="10">
+
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="unvalidatedTable"></tbody>
+
+                </table>
+
+            </td>
+        </tr>
+
+
+        <!-- VALIDATED ACCOUNTS -->
+        <tr>
+            <td colspan="4">
+
+                <h3>Students Enrolled in Dorms (Validated Accounts)</h3>
+
+                <table width="100%" border="1"
+                       cellspacing="0" cellpadding="10">
+
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Floor and Room</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="validatedTable"></tbody>
+
+                </table>
+
+                <br><br><br><br><br>
+
+            </td>
+        </tr>
+
+    </table>
+
+
+    <!-- VIEW STUDENT MODAL -->
+    
+        <!-- VALIDATE STUDENT MODAL -->
+        <div id="viewModal" style="display:none;">
+
+            <h3>Student Information</h3>
+
+            <form id="validateForm">
+
+                <input type="hidden" id="validateStudentId">
+
+                <label>Student Name:</label>
+                <input type="text" id="viewName" readonly>
+
+                <br><br>
+
+                <label>Email:</label>
+                <input type="email" id="viewEmail" readonly>
+
+                <br><br>
+
+                <hr>
+
+                <h3>Dorm Assignment</h3>
+
+                <label>Floor:</label>
+                <input
+                    type="text"
+                    id="floor"
+                    placeholder="e.g. 1st Floor"
+                    required>
+
+                <br><br>
+
+                <label>Room:</label>
+                <input
+                    type="text"
+                    id="room"
+                    placeholder="e.g. Room 101"
+                    required>
+
+                <br><br>
+
+                <button type="button" id="validateAccountBtn">
+                    Validate Account
+                </button>
+
+                <button type="button" id="closeModal">
+                    Close
+                </button>
+
+            </form>
+
+            <div id="validationResult" style="display:none;">
+
+                <h3>Account Successfully Validated!</h3>
+
+                <p>Generated Password:</p>
+                <input type="text" id="generatedPassword" readonly>
+
+                <p>Room Assignment:</p>
+                <input type="text" id="generatedRoom" readonly>
+
+                <p>Please provide the generated password to the student.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIEW ACCOUNT MODAL -->
+        
+        <!-- VIEW ACCOUNT MODAL -->
+        <dialog id="accountViewModal">
+
+            <h2>Account Information</h2>
+
+            <hr>
+
+            <p>
+                <strong>Student Name:</strong>
+                <span id="viewStudentName"></span>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <span id="viewStudentEmail"></span>
+            </p>
+
+            <p>
+                <strong>Floor:</strong>
+                <span id="viewStudentFloor"></span>
+            </p>
+
+            <p>
+                <strong>Room:</strong>
+                <span id="viewStudentRoom"></span>
+            </p>
+
+            <hr>
+
+            <input type="hidden" id="viewStudentId">
+
+            <button type="button" id="viewModifyBtn">
+                Modify
+            </button>
+
+            <button type="button" id="viewDeleteBtn">
+                Delete
+            </button>
+
+            <button type="button" id="viewCloseBtn">
+                Close
+            </button>
+
+        </dialog>
+
+
+        <!-- MODIFY DORMER MODAL -->
+        <dialog id="modifyAccountModal">
+
+            <h2>Modify Dormer Information</h2>
+
+            <hr>
+
+            <form id="modifyAccountForm">
+
+                <!-- STUDENT ID (HIDDEN, NOT EDITABLE) -->
+                <input type="hidden" id="editStudentId" name="student_id">
+
+                <h3>Student Information</h3>
+
+                <label>First Name:</label>
+                <input type="text" id="editFirstName" name="first_name" required>
+
+                <br><br>
+
+                <label>Middle Name:</label>
+                <input type="text" id="editMiddleName" name="middle_name">
+
+                <br><br>
+
+                <label>Last Name:</label>
+                <input type="text" id="editLastName" name="last_name" required>
+
+                <br><br>
+
+                <label>Age:</label>
+                <input type="number" id="editAge" name="age" min="1" required>
+
+                <br><br>
+
+                <label>Gender:</label>
+                <input type="text" id="editGender" name="gender" required>
+
+                <br><br>
+
+                <label>Email:</label>
+                <input type="email" id="editEmail" name="email" required>
+
+                <br><br>
+
+                <label>Address:</label>
+                <textarea id="editAddress" name="address" required></textarea>
+
+                <hr>
+
+                <h3>Dorm Assignment</h3>
+
+                <label>Room Assignment:</label>
+                <input type="text" id="editRoomAssignment"
+                    name="room_assignment" required>
+
+                <br><br>
+
+                <button type="submit">
+                    Save Changes
+                </button>
+
+                <button type="button" id="cancelModifyBtn">
+                    Cancel
+                </button>
+
+            </form>
+
+        </dialog>
+
+
+
+
+        <script src="manage_accounts.js"></script>
+</body>
+</html>

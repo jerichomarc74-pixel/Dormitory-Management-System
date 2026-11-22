@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+</head>
+<body>
+
+    <form action="register.php" method="POST" enctype="multipart/form-data">
+
+        <h1>REGISTER</h1>
+        <p>AS STUDENT</p>
+
+        <!-- Fullname -->
+        <label for="last_name">Last name</label>
+        <input 
+            type="text" 
+            id="last_name" 
+            name="last_name" 
+            placeholder="Last name"
+            required
+        >
+        <label for="first_name">First name</label>
+        <input 
+            type="text" 
+            id="first_name" 
+            name="first_name" 
+            placeholder="first name"
+            required
+        >
+        <label for="middle_name">Middle Name</label>
+        <input
+            type="text"
+            id="middle_name"
+            name="middle_name"
+            placeholder="Enter middle name"
+        >
+
+        <!-- Age -->
+        <label for="age">Age</label>
+        <input 
+            type="number" 
+            id="age" 
+            name="age" 
+            placeholder="Enter age"
+            required
+        >
+
+        <!-- Gender -->
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <!-- Student ID -->
+        <label for="student_id">Student ID</label>
+        <input 
+            type="text" 
+            id="student_id" 
+            name="student_id"
+            required
+        >
+
+        <!-- Email Contact -->
+        <label for="email">Email Contact</label>
+        <input 
+            type="email" 
+            id="email" 
+            name="email"
+            required
+        >
+
+        <!-- Permanent Address -->
+        <label for="address">Permanent Address</label>
+        <input 
+            type="text" 
+            id="address" 
+            name="address"
+            required
+        >
+
+    
+
+        <!-- Register Button -->
+        <button type="submit">REGISTER &gt;</button>
+
+    </form>
+
+</body>
+</html>

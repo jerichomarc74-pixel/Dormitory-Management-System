@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dorm Personnel Registration</title>
+</head>
+<body>
+
+    <h1>REGISTER</h1>
+    <p>AS DORM PERSONNEL</p>
+
+    <form action="admin_register.php" method="POST">
+        <label for="LastName">Last Name</label><br>
+        <input
+            type="text"
+            id="LastName"
+            name="LastName"
+            placeholder="Enter last name"
+            required
+        >
+        <br><br>
+
+        <label for="FirstName">First Name</label><br>
+        <input
+            type="text"
+            id="FirstName"
+            name="FirstName"
+            placeholder="Enter first name"
+            required
+        >
+        <br><br>
+
+        <label for="MiddleInitial">Middle Initial</label><br>
+        <input
+            type="text"
+            id="MiddleInitial"
+            name="MiddleInitial"
+            placeholder="Enter middle initial"
+            required
+        >
+        <br><br>
+
+        <label for="age">Age</label><br>
+        <input
+            type="number"
+            id="age"
+            name="age"
+            placeholder="Enter age"
+            min="1"
+            required
+        >
+        <br><br>
+
+        <label for="gender">Gender</label><br>
+        <select id="gender" name="gender" required>
+            <option value="" selected disabled>Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+
+        <label for="personnel_type">Personnel type</label><br>
+        <select id="personnel_type" name="personnel_type" required>
+            <option value="" selected disabled>Select personnel type</option>
+            <option value="Administrator">Administrator</option>
+            <option value="security personnel">Security Personnel</option>
+            <option value="Staff">Staff</option>
+        </select>
+        <br><br>
+
+        <label for="email">Email Contact</label><br>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter Email Account"
+            required
+        >
+        <br><br>
+
+        <label for="password">Password</label><br>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Create Password"
+            required
+        >
+        <br><br>
+
+        <label for="Re_EnterPassword">Re-Enter Password</label><br>
+        <input
+            type="password"
+            id="Re_EnterPassword"
+            name="Re_EnterPassword"
+            placeholder="Re-Enter Password"
+            required
+        >
+        <br><br>
+
+        <button type="submit">REGISTER &gt;</button>
+
+    </form>
+
+</body>
+</html>

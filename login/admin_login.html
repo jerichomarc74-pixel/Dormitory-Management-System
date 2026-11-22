@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+</head>
+<body>
+
+    <form action="admin_login.php" method="POST">
+
+        <h1>LOGIN</h1>
+
+        <!-- Username / Email -->
+        <label for="email">Email</label>
+        <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+        >
+
+        <!-- Password -->
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <!-- Login Button -->
+        <button type="submit">Login</button>
+
+        <p>Don't have an account? <a href="../registration/admin_register.html">Register now</a></p>
+
+    </form>
+
+</body>
+</html>

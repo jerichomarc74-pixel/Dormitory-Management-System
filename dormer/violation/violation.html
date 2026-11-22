@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Violations</title>
+
+    <style>
+        body {
+            background-color: #c4c9ed;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .violation-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .violation-container h2 {
+            color: #304eaa;
+        }
+
+        .violation-container p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #929bd6;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Violations</h1>
+
+    <!-- OFFENSES -->
+    <section class="violation-container">
+
+        <h2>Offenses</h2>
+
+        <p id="offenses">Loading...</p>
+
+    </section>
+
+    <!-- ABSENT -->
+    <section class="violation-container">
+
+        <h2>Absent</h2>
+
+        <p id="absent">Loading...</p>
+
+    </section>
+
+    <!-- CURFEW -->
+    <section class="violation-container">
+
+        <h2>Curfew Records</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+
+            <tbody id="curfewRecords">
+
+                <tr>
+                    <td colspan="2">Loading...</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <script src="violation.js"></script>
+
+</body>
+</html>
