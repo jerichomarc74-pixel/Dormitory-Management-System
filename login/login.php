@@ -1,46 +1,86 @@
+
 <?php
 session_start();
-require_once '../connection/db_connect.php';
 
-$email = $_POST['username'];
-$password = $_POST['password'];
+require_once "../connection/db_connect.php";
 
-$sql = "SELECT * FROM validated_dormers
-        WHERE email = ?";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$stmt = $conn->prepare($sql);
+    $email = trim($_POST["email"]);
+    $password = $_POST["password"];
 
-$stmt->bind_param("s", $email);
+    // STEP 1: Check if the account belongs to admin/personnel
+    $sql = "SELECT * FROM dorm_personnel WHERE email = ?";
 
-$stmt->execute();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
 
-$result = $stmt->get_result();
+    $result = $stmt->get_result();
 
-// Check if account exists
-if ($result->num_rows > 0) {
+    if ($row = $result->fetch_assoc()) {
 
-    $user = $result->fetch_assoc();
+        // Admin password is hashed
+        if (password_verify($password, $row["password"])) {
 
-    // Verify password
-    if ($password === $user['password']) {
-      
-        $_SESSION['student_id'] = $user['student_id'];
-        header("Location: ../dormer/dashboard/dashboard.html");
+            $_SESSION["admin_id"] = $row["personnel_id"];
+            $_SESSION["admin_email"] = $row["email"];
+            $_SESSION["admin_name"] = $row["first_name"];
+            $_SESSION["admin_lastname"] = $row["last_name"];
+            $_SESSION["personnel_type"] = $row["personnel_type"];
 
-    } else {
+            $stmt->close();
+            $conn->close();
 
-        echo "Incorrect password!";
+            header("Location: ../admin/dashboard/dashboard.html");
+            exit();
+
+        } else {
+
+            echo "Invalid email or password.";
+            exit();
+        }
 
     }
 
-} else {
+    $stmt->close();
 
-    echo "Account does not exist!";
+
+    // STEP 2: If not admin, check if the account belongs to a student
+    $sql = "SELECT * FROM validated_dormers WHERE email = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+
+        // Student password is currently plaintext
+        if ($password === $row["password"]) {
+
+            $_SESSION["student_id"] = $row["student_id"];
+
+            $stmt->close();
+            $conn->close();
+
+            header("Location: ../dormer/dashboard/dashboard.html");
+            exit();
+
+        } else {
+
+            echo "Invalid email or password.";
+            exit();
+        }
+
+    } else {
+
+        echo "Account does not exist.";
+    }
+
+    $stmt->close();
+    $conn->close();
 
 }
-
-$stmt->close();
-$conn->close();
-
-
 ?>

@@ -97,7 +97,7 @@ async function loadPaymentHistory() {
                 this.alt = "Unable to load payment image";
             };
 
-            const details = document.createElement("div");
+                      const details = document.createElement("div");
             details.className = "payment-details";
 
             const date = document.createElement("p");
@@ -106,8 +106,21 @@ async function loadPaymentHistory() {
             const time = document.createElement("p");
             time.textContent = "Time: " + payment.time;
 
+            // Status (Pending / Verified / Rejected)
+            const status = payment.status || "Pending";
+
+            const statusP = document.createElement("p");
+            statusP.textContent = "Status: ";
+
+            const badge = document.createElement("span");
+            badge.className = "status-badge status-" + status.toLowerCase();
+            badge.textContent = status;
+
+            statusP.appendChild(badge);
+
             details.appendChild(date);
             details.appendChild(time);
+            details.appendChild(statusP);
 
             record.appendChild(image);
             record.appendChild(details);

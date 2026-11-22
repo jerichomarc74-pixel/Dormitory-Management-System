@@ -36,13 +36,19 @@
 
         .status {
             width: 85%;
-            height: 150px;
+            min-height: 150px;      /* was: height: 150px */
             margin: 40px auto 20px;
             background-color: #e0e3f7;
             border-radius: 20px;
             text-align: center;
             padding: 15px;
             font-size: 22px;
+        }
+
+        #statusQR {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
         }
 
         .buttons {
@@ -128,6 +134,28 @@
             <span id="studentID">Loading...</span>
         </p>
 
+        <div id="statusQR"></div>
+
+        <p>
+            Room Type:
+            <span id="statusRoom">Loading...</span>
+        </p>
+
+        <p>
+            Address:
+            <span id="statusAddress">Loading...</span>
+        </p>
+
+        <p>
+            Date:
+            <span id="statusDate">Loading...</span>
+        </p>
+
+        <p>
+            Time:
+            <span id="statusTime">Loading...</span>
+        </p>
+
     </div>
 
 
@@ -135,12 +163,8 @@
 
     <div class="buttons">
 
-        <button type="button" onclick="openModal('Time In')">
-            Time In
-        </button>
-
-        <button type="button" onclick="openModal('Time Out')">
-            Time Out
+        <button type="button" onclick="openModal('Time in')">
+            Show Full QR Code
         </button>
 
     </div>

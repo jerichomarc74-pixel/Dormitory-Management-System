@@ -35,6 +35,22 @@ async function loadStudent() {
         document.getElementById("studentID").textContent =
             student.student_id || "";
 
+        document.getElementById("statusRoom").textContent =
+            student.room_assignment || "";
+
+        document.getElementById("statusAddress").textContent =
+            student.address || "";
+
+        document.getElementById("statusDate").textContent =
+            new Date().toLocaleDateString();
+
+        document.getElementById("statusTime").textContent =
+            new Date().toLocaleTimeString();
+
+        document.getElementById("studentID").textContent =
+            student.student_id || "";
+
+        displayStatusCard(); 
         console.log("Student loaded successfully:", student);
 
     } catch (error) {
@@ -175,3 +191,20 @@ document.addEventListener("DOMContentLoaded", function() {
     loadAttendanceHistory();
 
 });
+
+function displayStatusCard() {
+    if (!student) return;
+
+    const now = new Date();
+    document.getElementById("statusDate").textContent = now.toLocaleDateString();
+    document.getElementById("statusTime").textContent = now.toLocaleTimeString();
+
+    const statusQR = document.getElementById("statusQR");
+    statusQR.innerHTML = "";
+
+    new QRCode(statusQR, {
+        text: String(student.student_id),
+        width: 150,
+        height: 150
+    });
+}

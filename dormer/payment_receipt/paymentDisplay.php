@@ -22,7 +22,7 @@ if (!isset($_SESSION['student_id'])) {
 $student_id = $_SESSION['student_id'];
 
 // Get only this student's payment proofs
-$sql = "SELECT proof_image, upload_datetime
+$sql = "SELECT proof_image, upload_datetime, status
         FROM payment_proofs
         WHERE student_id = ?
         ORDER BY upload_datetime DESC";
@@ -38,11 +38,11 @@ $payments = [];
 while ($row = $result->fetch_assoc()) {
 
     $timestamp = strtotime($row['upload_datetime']);
-
     $payments[] = [
         "proof_image" => $row['proof_image'],
         "date" => date("F d, Y", $timestamp),
-        "time" => date("h:i:s A", $timestamp)
+        "time" => date("h:i:s A", $timestamp),
+        "status" => $row['status'] ?? "Pending"
     ];
 
 }
