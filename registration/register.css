@@ -1,0 +1,50 @@
+/* LNU Dormitory - Register page (colors from the LNU seal) */
+:root{--navy:#1c2b86;--navy-dark:#101a55;--gold:#d9a62b;--cream:#fbf7ec;--ink:#1b1d3a;--muted:#646379;--flame:#d9381e}
+*{box-sizing:border-box;margin:0}
+body{
+  min-height:100vh;padding:24px;
+  display:flex;flex-direction:column;
+  font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);
+  background:linear-gradient(135deg,var(--navy),var(--navy-dark));
+}
+
+/* Card (the form itself) with the seal shown on top via CSS */
+form{
+  width:100%;max-width:480px;margin:50px auto 24px;
+  background:var(--cream);
+  border-top:6px solid var(--gold);
+  border-radius:16px;
+  padding:60px 28px 28px;
+  position:relative;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+form::before{
+  content:"";position:absolute;top:0;left:50%;
+  width:84px;height:84px;transform:translate(-50%,-50%);
+  border-radius:50%;background:url("logo.jpg") center/cover no-repeat;
+  box-shadow:0 0 0 4px var(--gold),0 4px 12px rgba(0,0,0,.35);
+}
+h1{text-align:center;color:var(--navy);font-size:1.7rem;letter-spacing:3px}
+form > p{
+  text-align:center;margin:4px 0 8px;
+  color:#8a6100;font-weight:700;font-size:.85rem;letter-spacing:2px;
+}
+
+label{display:block;margin:14px 0 6px;font-weight:600;color:var(--navy);font-size:.92rem}
+input,select{
+  width:100%;padding:11px 14px;font:inherit;color:var(--ink);
+  background:#fff;border:2px solid #d8d2bd;border-radius:10px;
+}
+input::placeholder{color:#9a98a8}
+input:focus,select:focus{outline:0;border-color:var(--navy);box-shadow:0 0 0 3px rgba(217,166,43,.35)}
+input:invalid:not(:placeholder-shown){border-color:var(--flame)}
+
+button{
+  width:100%;margin-top:24px;padding:12px;
+  font:inherit;font-weight:700;letter-spacing:1px;cursor:pointer;
+  background:var(--navy);color:#fff;border:2px solid var(--navy);border-radius:10px;
+  transition:background .2s,color .2s;
+}
+button:hover{background:var(--gold);color:var(--navy-dark);border-color:var(--gold)}
+
+@media(max-width:420px){form{padding:56px 18px 22px}}
