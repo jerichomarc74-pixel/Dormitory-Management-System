@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --blue-deep: #2f48a8;
+    --blue-soft: #8a93d4;
+    --blue-line: #3f55b8;
+    --panel: #dddcf3;
+    --chip: #dcdcf5;
+    --page: #f6f7fd;
+    --card: #ffffff;
+    --ink: #14185a;
+    --muted: #6b6fa8;
+    --shadow: 0 8px 24px rgba(47, 72, 168, 0.12);
+}
+
+* { box-sizing: border-box; }
+
+html {
+    min-height: 100%;
+    background: var(--page);
+}
+
+body {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 24px clamp(14px, 2.4vw, 28px) 40px;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    color: var(--ink);
+    background: transparent;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: url("LNU_LOGO.png") center / min(70vmin, 520px) no-repeat;
+    opacity: 0.15;
+    pointer-events: none;
+}
+h2 {
+    position: relative;
+    margin: 0 0 24px;
+    padding: 22px 60px;
+    background:
+        radial-gradient(circle at 94% 10%, rgba(255, 255, 255, 0.2) 0 44px, transparent 45px),
+        radial-gradient(circle at 72% 120%, rgba(255, 255, 255, 0.14) 0 38px, transparent 39px),
+        linear-gradient(120deg, var(--blue-deep) 0%, var(--blue-soft) 100%);
+    border-radius: 22px;
+    box-shadow: 0 10px 24px rgba(47, 72, 168, 0.25);
+    color: #fff;
+    font-size: 19px;
+    font-weight: 600;
+    text-align: center;
+    
+}
+h2::before,
+h2::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 26px;
+    height: 26px;
+    margin-top: -13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    
+}
+
+h2::before {
+    left: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 22'%3E%3Cg stroke='%23fff' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M2 3h24M2 11h24M2 19h24'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+h2::after {
+    right: 16px;
+    background-image:
+        radial-gradient(circle at 78% 18%, #ff4d5e 0 3.5px, transparent 4.5px),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round' d='M12 21.5a2.2 2.2 0 0 0 2.1-1.6H9.9A2.2 2.2 0 0 0 12 21.5zM18.5 16v-4.6a6.5 6.5 0 0 0-4.7-6.2V4a1.8 1.8 0 0 0-3.6 0v1.2a6.5 6.5 0 0 0-4.7 6.2V16l-1.8 1.8v.7h16.6v-.7z'/%3E%3C/svg%3E");
+}
+.status {
+    width: 100%;
+    min-height: 130px;
+    margin: 0 0 22px;
+    padding: 16px 20px 18px;
+    background: var(--panel);
+    border: 2px solid var(--blue-line);
+    border-radius: 22px;
+    text-align: left;
+    font-size: 15px;
+    background: rgba(59, 56, 209, 0.15);
+   
+}
+.status h3 {
+    margin: 0 0 12px;
+    color: var(--ink);
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 600;
+    
+}
+
+.status p {
+    margin: 8px 0;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.status span {
+    color: var(--ink);
+    font-weight: 600;
+}
+.buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin: 0 0 22px;
+    
+}
+
+.buttons button {
+    flex: 1;
+    max-width: 320px;
+    padding: 14px 10px;
+    border: 2px solid var(--blue-line);
+    border-radius: 16px;
+    background: var(--card);
+    background:rgba(255, 255, 255, 0.5);   /* white area */
+    color: var(--ink);
+    font: 600 15px 'Poppins', sans-serif;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+
+}
+
+.buttons button:hover { background: var(--panel); }
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(255, 255, 255, 0.5);   /* white area */
+    border: 2px solid var(--blue-line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+th {
+    padding: 16px 20px 18px;
+    background: rgba(59, 56, 209, 0.15);  /* "Recent History" header */
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+td {
+    padding: 14px 20px;
+    background: transparent;                /* rows follow the table background */
+    border: none;
+    border-top: 1px solid rgba(63, 85, 184, 0.2);
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: rgba(246, 247, 253, 0.95);
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 24px 14px 32px;
+    background: transparent;
+    text-align: center;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 64px);
+    max-width: 320px;
+    margin: 28px auto 20px;
+    padding: 26px;
+    background: var(--card);
+    border: 2px solid var(--blue-line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+
+.info {
+    width: calc(100% - 64px);
+    max-width: 320px;
+    margin: 0 auto 22px;
+    padding: 8px 18px;
+    background: var(--panel);
+    border: 2px solid var(--blue-line);
+    border-radius: 22px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.info p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.info b { color: var(--blue-line); font-weight: 500; }
+.info span { color: var(--ink); font-weight: 600; text-align: right; }
+
+.close-btn {
+    display: block;
+    width: calc(100% - 64px);
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 14px 10px;
+    border: none;
+    border-radius: 16px;
+    background: var(--blue-deep);
+    color: #fff;
+    font: 600 15px 'Poppins', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(47, 72, 168, 0.28);
+}
+
+.close-btn:hover { background: #3a54bb; }
+
+@media (max-width: 600px) {
+    body { padding: 14px 14px 30px; }
+    h2 { margin-bottom: 18px; padding: 18px 52px; font-size: 17px; }
+    .buttons { gap: 10px; }
+    .buttons button { padding: 12px 8px; font-size: 13px; }
+    .status { padding: 16px; }
+    th, td { padding: 12px 14px; }
+}
