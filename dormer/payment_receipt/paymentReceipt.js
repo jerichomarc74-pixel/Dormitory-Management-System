@@ -1,5 +1,5 @@
 
-// IMAGE PREVIEW
+ // IMAGE PREVIEW
 function initializeImagePreview() {
 
     const proofImage = document.getElementById("proofImage");
@@ -13,6 +13,8 @@ function initializeImagePreview() {
         const previewContainer = document.getElementById("previewContainer");
         const previewImage = document.getElementById("previewImage");
 
+        if (!previewContainer || !previewImage) return;
+
         if (file) {
 
             if (!file.type.startsWith("image/")) {
@@ -22,7 +24,17 @@ function initializeImagePreview() {
                 return;
             }
 
-            previewImage.src = URL.createObjectURL(file);
+            // Remove previous preview URL
+            if (previewImage.dataset.objectUrl) {
+                URL.revokeObjectURL(previewImage.dataset.objectUrl);
+            }
+
+            // Create new preview
+            const objectUrl = URL.createObjectURL(file);
+
+            previewImage.src = objectUrl;
+            previewImage.dataset.objectUrl = objectUrl;
+
             previewContainer.style.display = "block";
 
         } else {
@@ -38,13 +50,18 @@ function initializeImagePreview() {
 // CURRENT DATE AND TIME
 function updateDateTime() {
 
+    const currentDate = document.getElementById("currentDate");
+    const currentTime = document.getElementById("currentTime");
+
     const now = new Date();
 
-    document.getElementById("currentDate").textContent =
-        now.toLocaleDateString();
+    if (currentDate) {
+        currentDate.textContent = now.toLocaleDateString();
+    }
 
-    document.getElementById("currentTime").textContent =
-        now.toLocaleTimeString();
+    if (currentTime) {
+        currentTime.textContent = now.toLocaleTimeString();
+    }
 
 }
 
@@ -71,6 +88,7 @@ async function loadPaymentHistory() {
 
         paymentList.innerHTML = "";
 
+        // No payment records
         if (!data.payments || data.payments.length === 0) {
 
             paymentList.innerHTML = `
@@ -82,49 +100,65 @@ async function loadPaymentHistory() {
             return;
         }
 
+        // Display each payment record
         data.payments.forEach(payment => {
 
             const record = document.createElement("div");
             record.className = "payment-record";
 
+            // PAYMENT IMAGE (FROM DATABASE BLOB)
             const image = document.createElement("img");
 
-            image.src = payment.proof_image;
             image.alt = "Proof of Payment";
+            image.loading = "lazy";
+
+            // Use image_url provided by paymentDisplay.php
+            image.src = payment.image_url;
 
             image.onerror = function() {
-                console.error("Image failed to load:", payment.proof_image);
+                console.error("Payment image failed to load:", payment.image_url);
                 this.alt = "Unable to load payment image";
             };
 
-                      const details = document.createElement("div");
+            image.onload = function() {
+                console.log("Payment image loaded successfully:", payment.image_url);
+            };
+
+            // PAYMENT DETAILS
+            const details = document.createElement("div");
             details.className = "payment-details";
 
             const date = document.createElement("p");
-            date.textContent = "Date: " + payment.date;
+            date.textContent = "Date: " + (payment.date || "N/A");
 
             const time = document.createElement("p");
-            time.textContent = "Time: " + payment.time;
+            time.textContent = "Time: " + (payment.time || "N/A");
 
-            // Status (Pending / Verified / Rejected)
+            // PAYMENT STATUS
             const status = payment.status || "Pending";
 
             const statusP = document.createElement("p");
             statusP.textContent = "Status: ";
 
             const badge = document.createElement("span");
-            badge.className = "status-badge status-" + status.toLowerCase();
+
+            badge.className = "status-badge status-" +
+                status.toLowerCase().replace(/[^a-z0-9-]/g, "");
+
             badge.textContent = status;
 
             statusP.appendChild(badge);
 
+            // Append details
             details.appendChild(date);
             details.appendChild(time);
             details.appendChild(statusP);
 
+            // Append image and details to record
             record.appendChild(image);
             record.appendChild(details);
 
+            // Append record to page
             paymentList.appendChild(record);
 
         });
@@ -155,8 +189,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateDateTime();
 
+    // Update date and time every second
     setInterval(updateDateTime, 1000);
 
+    // Load payment history
     loadPaymentHistory();
 
 });
