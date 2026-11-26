@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Violation | Leyte Normal University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="student_violation.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR (set each href to your real page paths) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <!-- Replace with <img src="lnu-seal.png" alt="LNU seal"> -->
+      <div class="seal" aria-hidden="true">LNU</div>
+      <div class="brand-text">Leyte Normal University<br>Dorm Administrator</div>
+    </div>
+
+    <nav class="nav" aria-label="Main">
+      <a href="../../dashboard/dashboard.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Home</a>
+
+      <button class="nav-item nav-toggle" id="manageToggle" aria-expanded="true" aria-controls="manageMenu" type="button">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg>
+        Manage
+        <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="submenu" id="manageMenu">
+        <a href="../managing/manage_accounts.html">Manage Students</a>
+        <a href="student_violation.html" class="active" aria-current="page">Student Violation</a>
+        <a href="../proof_of_payment/proof_of_payment.html">Proof of Payment</a>
+        <a href="#">Room management</a>
+      </div>
+
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg>Attendance</a>
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 9v6h3l6 4V5L7 9H4zM17 9a4 4 0 010 6"/></svg>Announcements</a>
+    </nav>
+
+    <div class="side-foot">
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>Settings</a>
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>Sign out</a>
+      <p class="side-note">Dorm Administrator workspace<br>&copy; 2026 Leyte Normal University</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">Dormitory office</p>
+      <h1>Student conduct<br>and registrations</h1>
+      <p class="hero-desc">Log violations and absences, review each dormer's record, and approve new residents.</p>
+      <p class="hero-meta">
+        <span id="signedIn" hidden>Signed in as <b id="adminName"></b></span>
+        <span>Dormers <b id="heroDormers">0</b></span>
+        <span>Pending registrations <b id="heroPending">0</b></span>
+      </p>
+    </section>
+
+    <!-- DORMERS -->
+    <section class="card panel">
+      <div class="p-head">
+        <div>
+          <p class="label">Conduct</p>
+          <h2>Dormers</h2>
+          <p class="lede">Search by name, student ID or room, then log a violation or absence.</p>
+        </div>
+        <button class="btn ghost" type="button" data-refresh>Refresh</button>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="dormerSearch" placeholder="Name, student ID or room (3-5)" aria-label="Search dormers">
+      </label>
+      <div class="chips" id="chips" role="group" aria-label="Filter by record">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="records" aria-pressed="false">With records</button>
+        <button class="chip" type="button" data-filter="major" aria-pressed="false">Major</button>
+        <button class="chip" type="button" data-filter="minor" aria-pressed="false">Minor</button>
+        <button class="chip" type="button" data-filter="curfew" aria-pressed="false">Curfew</button>
+        <button class="chip" type="button" data-filter="cleanup" aria-pressed="false">Cleanup</button>
+        <button class="chip" type="button" data-filter="payment" aria-pressed="false">Payment</button>
+        <button class="chip" type="button" data-filter="absence" aria-pressed="false">Absences</button>
+      </div>
+      <p class="showing" id="dormerShowing"></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Student ID</th><th>Year</th><th>Floor &amp; room</th><th>Record</th><th class="right"><span class="sr">Actions</span></th></tr></thead>
+          <tbody id="dormerTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PENDING REGISTRATIONS -->
+    <section class="card panel">
+      <div class="p-head">
+        <div>
+          <p class="label">Admissions</p>
+          <h2>Pending registrations <span class="pill-count" id="pendingCount">0</span></h2>
+          <p class="lede">Approving creates the dormer's account. Add a room now or later.</p>
+        </div>
+        <button class="btn ghost" type="button" data-refresh>Refresh</button>
+      </div>
+      <div class="pers-grid" id="pendingList"></div>
+    </section>
+
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </main>
+</div>
+
+<!-- LOG A RECORD -->
+<dialog id="logModal">
+  <h2>Log a record</h2>
+  <p class="lede" id="logSub"></p>
+  <form id="logForm">
+    <div class="form-grid">
+      <div>
+        <label class="lbl" for="logType">Record type</label>
+        <select class="field" id="logType">
+          <option value="violation">Violation</option>
+          <option value="absence">Absence</option>
+        </select>
+      </div>
+      <div id="catWrap">
+        <label class="lbl" for="logCategory">Category</label>
+        <select class="field" id="logCategory">
+          <option value="major">Major</option>
+          <option value="minor">Minor</option>
+          <option value="curfew">Curfew</option>
+          <option value="cleanup">Cleanup</option>
+          <option value="payment">Payment</option>
+        </select>
+      </div>
+      <div>
+        <label class="lbl" for="logDate">Date</label>
+        <input class="field" type="date" id="logDate" required>
+      </div>
+      <div class="full">
+        <label class="lbl" for="logNote" id="logNoteLabel">What happened</label>
+        <textarea class="field" id="logNote" rows="3" required></textarea>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn primary sm" type="submit">Save record</button>
+      <button class="btn sm" type="button" id="logCloseBtn">Close</button>
+    </div>
+  </form>
+  <h3 class="hist-title">Record history</h3>
+  <ul class="history" id="logHistory"></ul>
+</dialog>
+
+<script src="student_violation.js"></script>
+</body>
+</html>

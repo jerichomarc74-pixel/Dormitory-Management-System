@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof of Payment | Leyte Normal University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="proof_of_payment.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR (set each href to your real page paths) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <!-- Replace with <img src="lnu-seal.png" alt="LNU seal"> -->
+      <div class="seal" aria-hidden="true">LNU</div>
+      <div class="brand-text">Leyte Normal University<br>Dorm Administrator</div>
+    </div>
+
+    <nav class="nav" aria-label="Main">
+      <a href="../../dashboard/dashboard.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Home</a>
+
+      <button class="nav-item nav-toggle" id="manageToggle" aria-expanded="true" aria-controls="manageMenu" type="button">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg>
+        Manage
+        <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="submenu" id="manageMenu">
+        <a href="../manage_accounts.html">Manage Students</a>
+        <a href="../dormer_violation/student_violation.html">Student Violation</a>
+        <a href="proof_of_payment.html" class="active" aria-current="page">Proof of Payment</a>
+        <a href="#">Room management</a>
+      </div>
+
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg>Attendance</a>
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 9v6h3l6 4V5L7 9H4zM17 9a4 4 0 010 6"/></svg>Announcements</a>
+    </nav>
+
+    <div class="side-foot">
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>Settings</a>
+      <a href="#" class="nav-item"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>Sign out</a>
+      <p class="side-note">Dorm Administrator workspace<br>&copy; 2026 Leyte Normal University</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">Manage</p>
+      <h1>Proof of Payment</h1>
+      <p class="hero-desc">Check each dormer's uploaded proof and mark it recorded once the payment is in the books.</p>
+      <p class="hero-meta">
+        <span>Recorded <b id="heroRecorded">0</b></span>
+        <span>Unrecorded <b id="heroUnrecorded">0</b></span>
+      </p>
+    </section>
+
+    <!-- PROOFS RECORDS -->
+    <section class="card panel">
+      <div class="p-head">
+        <div>
+          <p class="label">Records</p>
+          <h2>Proofs records</h2>
+          <p class="lede">One row per dormer. The status follows their latest upload.</p>
+        </div>
+        <button class="btn ghost" type="button" id="refreshBtn">Refresh</button>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="proofSearch" placeholder="Name, student ID or room (3-5)" aria-label="Search dormers">
+      </label>
+      <div class="chips" id="chips" role="group" aria-label="Filter by status">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="unrecorded" aria-pressed="false">Unrecorded</button>
+        <button class="chip" type="button" data-filter="recorded" aria-pressed="false">Recorded</button>
+      </div>
+      <p class="showing" id="proofShowing"></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Floor &amp; room</th><th>Status</th><th class="right"><span class="sr">Actions</span></th></tr></thead>
+          <tbody id="proofTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </main>
+</div>
+
+<!-- VIEW PROOFS -->
+<dialog id="proofModal">
+  <h2>Proof of payment</h2>
+  <p class="lede" id="proofSub"></p>
+  <ul class="proofs" id="proofList"></ul>
+  <div class="actions"><button class="btn sm" type="button" id="proofCloseBtn">Close</button></div>
+</dialog>
+
+<script src="proof_of_payment.js"></script>
+</body>
+</html>
