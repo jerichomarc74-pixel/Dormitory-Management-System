@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Room management | LNU Dorm Administrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="room-management.css">
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand"><span class="logo">LNU</span><span>Leyte Normal<br>University<br>Dorm Administrator</span></div>
+  <nav aria-label="Main">
+    <a href="../../dashboard/dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Home</a>
+    <a href="#" class="grp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-4 3.3-6 6.5-6s5.9 2 6.5 6M16 4.5a3.5 3.5 0 010 7M18 14c2 .7 3.2 2.700 3.500 6"/></svg>Manage</a>
+    <div class="sub">
+      <a href="../managing/manage_accounts.html">Manage Students</a>
+      <a href="../dormer_violation/student_violation.html">Student Violation</a>
+      <a href="../proof_of_payment/proof_of_payment.html">Proof of Payment</a>
+      <a href="room-management.html" aria-current="page">Room management</a>
+    </div>
+    <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Attendance</a>
+    <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 9v6h4l6 4V5L8 9zM17 9a4 4 0 010 6"/></svg>Announcements</a>
+  </nav>
+  <div class="spacer"></div>
+  <nav aria-label="Account">
+    <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M5.600 18.400l2.100-2.100M16.300 7.700l2.100-2.100"/></svg>Settings</a>
+    <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 4h5v16h-5M4 12h11M11 8l4 4-4 4"/></svg>Sign out</a>
+  </nav>
+  
+</aside>
+
+<main>
+  <section class="hero" aria-labelledby="t">
+    <span class="eyebrow">Manage</span>
+    <h1 id="t">Room management</h1>
+    <p>Floors 1 to 3, rooms 1 to 10. Open a room to see who lives there and mark it checked once it is clean.</p>
+    <p class="meta" aria-live="polite"><span>Checked today <strong id="mc">0</strong></span><span>Unchecked <strong id="mu">0</strong></span><span>Rooms <strong id="mt">0</strong></span><span>Occupants <strong id="mo">0</strong></span></p>
+    <p class="alert" id="alert" role="alert" hidden></p>
+  </section>
+
+  <section aria-labelledby="ft">
+    <div class="head">
+      <div><span class="eyebrow">Today’s checks</span><h2 id="ft">Floors</h2><p>Checks reset every day. A room is “Checked” once someone marks it clean today.</p></div>
+      <button class="btn" type="button" id="refresh">Refresh</button>
+    </div>
+    <div id="floors"></div>
+  </section>
+</main>
+</div>
+
+<dialog id="dlg" aria-labelledby="dt">
+  <div class="dh"><div><span class="eyebrow" id="de">Floor</span><h2 id="dt">Room</h2></div><button class="x" type="button" id="dx" aria-label="Close">×</button></div>
+  <div class="db">
+    <p class="dm" id="dm" aria-live="polite"></p>
+    <h4>Students in this room</h4>
+    <div id="ds"></div>
+    <h4>Add a student</h4>
+    <form class="add" id="af" novalidate>
+      <label class="wide">Full name<input name="name" autocomplete="off"></label>
+      <label>Student ID<input name="sid" autocomplete="off"></label>
+      <label>Year level<select name="year"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></label>
+      <button class="btn pri sm wide" type="submit" id="addbtn">Add student</button>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+    <p class="note" id="note"></p>
+  </div>
+  <div class="da"><button class="btn" type="button" id="dc">Close</button><button class="btn pri" type="button" id="chk">Check</button></div>
+</dialog>
+
+<button class="theme" type="button" id="theme" aria-label="Switch light or dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg></button>
+
+<script src="room-management.js"></script>
+</body>
+</html>
