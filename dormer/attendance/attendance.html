@@ -1,264 +1,133 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | Leyte Normal University Dormitory</title>
 
-    <title>Attendance</title>
+    <!-- All styling lives in attendance.css -->
     <link rel="stylesheet" href="attendance.css">
-    <style>
-        body {
-            background-color: #c4c9ed;
-            font-family: Arial, sans-serif;
-        }
-
-        table {
-            width: 90%;
-            margin: 30px auto;
-            border-collapse: collapse;
-            background-color: white;
-        }
-
-        th {
-            background-color: #929bd6;
-            color: white;
-            padding: 10px;
-            font-size: 22px;
-        }
-
-        td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            font-size: 20px;
-        }
-
-        .status {
-            width: 85%;
-            min-height: 150px;      /* was: height: 150px */
-            margin: 40px auto 20px;
-            background-color: #e0e3f7;
-            border-radius: 20px;
-            text-align: center;
-            padding: 15px;
-            font-size: 22px;
-        }
-
-        #statusQR {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
-
-        .buttons {
-            text-align: center;
-            margin: 20px;
-        }
-
-        button {
-            width: 40%;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            cursor: pointer;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        /* QR MODAL */
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .modal-content {
-            background-color: #e0e3f7;
-            width: 80%;
-            max-width: 350px;
-            margin: 8% auto;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        #qrcode {
-            display: flex;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        .info {
-            text-align: left;
-            font-size: 16px;
-        }
-
-        .close-btn {
-            width: 90%;
-            background-color: #304eaa;
-            color: white;
-            border: none;
-        }
-
-    </style>
 </head>
 
 <body>
 
-    <h2>Attendance</h2>
+    <!-- ========== HEADER: logo + page title ========== -->
+    <header class="site-header">
+        <img class="logo" src="logo.jpg" alt="Leyte Normal University seal">
+        <div>
+            <h1>Attendance</h1>
+            <p class="subtitle">Dormitory Monitoring System</p>
+        </div>
+    </header>
 
-    <!-- STUDENT STATUS -->
+    <main class="page">
 
-    <div class="status">
+        <!-- ========== 1. YOUR STATUS: student info + small QR code ========== -->
+        <section class="card" aria-labelledby="status-title">
+            <h2 id="status-title">Your Status</h2>
 
-        <h3>Your Status</h3>
+            <!-- Shown by attendance.js if the student's info cannot be loaded -->
+            <div id="statusMessage" class="notice" role="alert" hidden>
+                <span id="statusMessageText"></span>
+                <button id="retryBtn" class="btn btn-small" type="button">Try again</button>
+            </div>
 
-        <p>
-            Student:
-            <span id="studentName">Loading...</span>
-        </p>
+            <div class="status-body">
 
-        <p>
-            Student ID:
-            <span id="studentID">Loading...</span>
-        </p>
+                <!-- Student details (filled in by attendance.js) -->
+                <dl class="details">
+                    <div>
+                        <dt>Student</dt>
+                        <dd id="studentName">Loading...</dd>
+                    </div>
+                    <div>
+                        <dt>Student ID</dt>
+                        <dd id="studentID">Loading...</dd>
+                    </div>
+                    <div>
+                        <dt>Room</dt>
+                        <dd id="statusRoom">Loading...</dd>
+                    </div>
+                    <div>
+                        <dt>Address</dt>
+                        <dd id="statusAddress">Loading...</dd>
+                    </div>
+                    <div>
+                        <dt>Date</dt>
+                        <dd id="statusDate">Loading...</dd>
+                    </div>
+                    <div>
+                        <dt>Time</dt>
+                        <dd id="statusTime">Loading...</dd>
+                    </div>
+                </dl>
 
-        <div id="statusQR"></div>
-
-        <p>
-            Room Type:
-            <span id="statusRoom">Loading...</span>
-        </p>
-
-        <p>
-            Address:
-            <span id="statusAddress">Loading...</span>
-        </p>
-
-        <p>
-            Date:
-            <span id="statusDate">Loading...</span>
-        </p>
-
-        <p>
-            Time:
-            <span id="statusTime">Loading...</span>
-        </p>
-
-    </div>
-
-
-    <!-- TIME IN AND TIME OUT -->
-
-    <div class="buttons">
-
-        <button type="button" onclick="openModal('Time in')">
-            Show Full QR Code
-        </button>
-
-    </div>
-
-    <br>
-
-
-    <!-- RECENT HISTORY -->
-
-  <table>
-
-    <thead>
-        <tr>
-            <th colspan="2">Recent History</th>
-        </tr>
-
-        <tr>
-            <th>Date & Time</th>
-            <th>Attendance Type</th>
-        </tr>
-    </thead>
-
-    <tbody id="recentHistory">
-
-        <tr>
-            <td colspan="2">Loading attendance history...</td>
-        </tr>
-
-    </tbody>
-
-</table>
-
-
-    <!-- QR CODE MODAL -->
-
-    <div id="qrModal" class="modal">
-
-        <div class="modal-content">
-
-            <h2 id="actionTitle">Time In</h2>
-
-            <div id="qrcode"></div>
-
-            <div class="info">
-
-                <p>
-                    <b>Student Name:</b>
-                    <span id="modalStudentName"></span>
-                </p>
-
-                <p>
-                    <b>Student ID:</b>
-                    <span id="modalStudentID"></span>
-                </p>
-
-                <p>
-                    <b>Room Type:</b>
-                    <span id="roomType"></span>
-                </p>
-
-                <p>
-                    <b>Address:</b>
-                    <span id="address"></span>
-                </p>
-
-                <p>
-                    <b>Date:</b>
-                    <span id="date"></span>
-                </p>
-
-                <p>
-                    <b>Time:</b>
-                    <span id="time"></span>
-                </p>
+                <!-- Small QR code -->
+                <div class="qr-box">
+                    <div id="statusQR"></div>
+                    <p class="hint">Show this code to be scanned for your attendance.</p>
+                </div>
 
             </div>
 
-            <button type="button" class="close-btn"
-                onclick="closeModal()">
-                Close
+            <button id="showQrBtn" class="btn btn-block" type="button">
+                Show Full QR Code
             </button>
+        </section>
+
+        <!-- ========== 2. RECENT HISTORY ========== -->
+        <section class="card" aria-labelledby="history-title">
+            <h2 id="history-title">Recent History</h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date &amp; Time</th>
+                            <th scope="col">Attendance Type</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Rows are filled in by attendance.js -->
+                    <tbody id="recentHistory">
+                        <tr>
+                            <td colspan="2">Loading attendance history...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ========== FULL-SIZE QR CODE (pop-up) ========== -->
+    <div id="qrModal" class="modal" hidden>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="actionTitle">
+
+            <h2 id="actionTitle">Your Attendance QR Code</h2>
+
+            <div id="qrcode"></div>
+
+            <dl class="info">
+                <div><dt>Student Name</dt><dd id="modalStudentName"></dd></div>
+                <div><dt>Student ID</dt><dd id="modalStudentID"></dd></div>
+                <div><dt>Room</dt><dd id="roomType"></dd></div>
+                <div><dt>Address</dt><dd id="address"></dd></div>
+                <div><dt>Date</dt><dd id="date"></dd></div>
+                <div><dt>Time</dt><dd id="time"></dd></div>
+            </dl>
+
+            <button id="closeModalBtn" class="btn btn-block" type="button">Close</button>
 
         </div>
-
     </div>
 
 
-    <!-- QR CODE LIBRARY -->
-
+    <!-- QR code library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <!-- JAVASCRIPT FILE -->
-
+    <!-- Page script -->
     <script src="attendance.js"></script>
-
 </body>
 </html>

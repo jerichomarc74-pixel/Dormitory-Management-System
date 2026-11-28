@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -40,19 +41,35 @@ $mime = $finfo->file($file['tmp_name']);
 
 $allowed_types = [
     'image/jpeg' => 'jpg',
-    'image/png'  => 'png'
+    'image/png' => 'png'
 ];
 
 if (!isset($allowed_types[$mime])) {
     die("Only JPG and PNG images are allowed.");
 }
 
-// Read the image contents
-$image_data = file_get_contents($file['tmp_name']);
+// Create upload folder if it does not exist
+$upload_dir = __DIR__ . '/uploads/payment_proofs/';
 
-if ($image_data === false) {
-    die("Unable to read uploaded image.");
+if (!is_dir($upload_dir)) {
+    mkdir($upload_dir, 0755, true);
 }
+
+// Generate unique filename
+$extension = $allowed_types[$mime];
+
+$filename = 'proof_' . $student_id . '_' .
+            bin2hex(random_bytes(8)) . '.' . $extension;
+
+$file_path = $upload_dir . $filename;
+
+// Move uploaded image
+if (!move_uploaded_file($file['tmp_name'], $file_path)) {
+    die("Unable to save uploaded image.");
+}
+
+// Save relative image path
+$image_path = 'uploads/payment_proofs/' . $filename;
 
 // Insert record into database
 $sql = "INSERT INTO payment_proofs
@@ -60,24 +77,23 @@ $sql = "INSERT INTO payment_proofs
         VALUES (?, ?, NOW())";
 
 $stmt = $conn->prepare($sql);
-
-$null = null;
-$stmt->bind_param("ib", $student_id, $null);
-
-// Send the file contents to the blob parameter (index 1)
-$stmt->send_long_data(1, $image_data);
+$stmt->bind_param("is", $student_id, $image_path);
 
 if ($stmt->execute()) {
 
-    echo "<script>
+    echo "
+    <script>
         alert('Payment proof uploaded successfully!');
         window.location.href = 'paymentReceipt.html';
-    </script>";
+    </script>
+    ";
 
 } else {
 
-    echo 'Database error: ' . htmlspecialchars($stmt->error);
+    // Remove uploaded image if database insertion fails
+    unlink($file_path);
 
+    echo 'Database error: ' . htmlspecialchars($stmt->error);
 }
 
 $stmt->close();

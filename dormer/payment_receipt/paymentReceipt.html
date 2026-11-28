@@ -1,340 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment | Leyte Normal University Dormitory</title>
 
-    <title>Payment Receipt</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #c4c9ed;
-        }
-
-        /* HEADER */
-        header {
-            background-color: #304eaa;
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 30px;
-            font-weight: normal;
-            color: black;
-        }
-
-        .menu-btn {
-            font-size: 30px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* MAIN CONTAINER */
-        .container {
-            width: 90%;
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 30px;
-            background-color: #e0e3f7;
-            border-radius: 20px;
-        }
-
-        .container h2 {
-            text-align: center;
-            color: #304eaa;
-            margin-bottom: 30px;
-        }
-
-        /* UPLOAD AREA */
-        .upload-box {
-            background-color: #ffffff;
-            border: 2px dashed #304eaa;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .upload-box label {
-            display: block;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        input[type="file"] {
-            display: block;
-            margin: 15px auto;
-            max-width: 100%;
-        }
-
-        /* IMAGE PREVIEW */
-        .preview-container {
-            margin-top: 20px;
-            display: none;
-        }
-
-        .preview-container img {
-            max-width: 100%;
-            max-height: 350px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        /* DATE AND TIME */
-        .date-time {
-            margin-top: 25px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 12px;
-            font-size: 17px;
-        }
-
-        .date-time p {
-            margin: 10px 0;
-        }
-
-        /* SUBMIT BUTTON */
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 25px;
-            background-color: #304eaa;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background-color: #203b8b;
-        }
-
-        /* PAYMENT HISTORY DRAWER */
-
-        .history-drawer {
-            width: 100%;
-            margin-top: 25px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        /* Drawer header */
-        .history-drawer summary {
-            padding: 18px;
-            background-color: #304eaa;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-drawer summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .history-drawer summary::after {
-            content: "+";
-            font-size: 25px;
-        }
-
-        .history-drawer[open] summary::after {
-            content: "−";
-        }
-
-        /* Drawer content */
-        .history-content {
-            padding: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        /* Individual payment record */
-        .payment-record {
-            background-color: #f0f1fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        /* Payment image */
-        .payment-record img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: contain;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        /* Date and time */
-        .payment-details {
-            margin-top: 12px;
-            font-size: 16px;
-        }
-
-        .payment-details p {
-            margin: 8px 0;
-        }
-
-        /* Empty message */
-        .no-payments {
-            text-align: center;
-            padding: 25px;
-            color: #666;
-        }
-                /* Payment status badge */
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .status-verified {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .status-rejected {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-
-    </style>
-
+    <!-- All styling lives in paymentReceipt.css -->
+    <link rel="stylesheet" href="paymentReceipt.css">
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-
-        <button class="menu-btn" type="button">
-            ☰
-        </button>
-
-        <h1>Payment</h1>
-
+    <!-- ========== HEADER: menu button, logo, page title ========== -->
+    <header class="site-header">
+        <button class="menu-btn" type="button" aria-label="Open menu">&#9776;</button>
+        <img class="logo" src="logo.jpg" alt="Leyte Normal University seal">
+        <div>
+            <h1>Payment</h1>
+            <p class="subtitle">Dormitory Monitoring System</p>
+        </div>
     </header>
 
+    <main class="page">
 
-    <!-- MAIN CONTENT -->
-    <main class="container">
+        <!-- ========== 1. UPLOAD FORM ========== -->
+        <section class="card">
+            <h2>Upload Proof of Payment</h2>
+            <p class="hint">
+                Upload a clear photo or screenshot of your receipt.
+                JPG or PNG only, up to 5 MB.
+            </p>
 
-        <h2>Upload Proof of Payment</h2>
+            <!-- The form posts to payment_receipt.php (field name: proof_image) -->
+            <form id="paymentForm"
+                  action="payment_receipt.php"
+                  method="POST"
+                  enctype="multipart/form-data">
 
-        <!-- UPLOAD FORM -->
-        <form id="paymentForm"
-              action="payment_receipt.php"
-              method="POST"
-              enctype="multipart/form-data">
+                <!-- Choose the image -->
+                <div class="upload-box">
+                    <label for="proofImage">Select Payment Receipt</label>
 
-            <!-- IMAGE UPLOAD -->
-            <div class="upload-box">
+                    <input type="file"
+                           id="proofImage"
+                           name="proof_image"
+                           accept="image/jpeg,image/png"
+                           required>
 
-                <label for="proofImage">
-                    Select Payment Receipt
-                </label>
+                    <!-- Shown by paymentReceipt.js when the chosen file is not allowed -->
+                    <p id="fileError" class="error" role="alert" hidden></p>
 
-                <input
-                    type="file"
-                    id="proofImage"
-                    name="proof_image"
-                    accept="image/jpeg,image/png,image/jpg"
-                    required
-                >
-
-                <!-- IMAGE PREVIEW -->
-                <div class="preview-container" id="previewContainer">
-
-                    <p>Image Preview</p>
-
-                    <img id="previewImage" src="" alt="Payment Receipt Preview">
-
+                    <!-- Shown by paymentReceipt.js once a valid image is chosen -->
+                    <div id="previewContainer" class="preview-container" hidden>
+                        <p>Image Preview</p>
+                        <img id="previewImage" src="" alt="Payment receipt preview">
+                    </div>
                 </div>
 
-            </div>
+                <!-- Live date and time (for reference only; the server records the real upload time) -->
+                <div class="date-time">
+                    <p><b>Date:</b> <span id="currentDate"></span></p>
+                    <p><b>Time:</b> <span id="currentTime"></span></p>
+                </div>
 
+                <button id="submitBtn" type="submit" class="btn btn-block">
+                    Submit Payment Proof
+                </button>
+            </form>
+        </section>
 
-            <!-- DATE AND TIME -->
-            <div class="date-time">
-
-                <p>
-                    <b>Date:</b>
-                    <span id="currentDate"></span>
-                </p>
-
-                <p>
-                    <b>Time:</b>
-                    <span id="currentTime"></span>
-                </p>
-
-            </div>
-
-
-            <!-- SUBMIT -->
-            <button type="submit" class="submit-btn">
-                Submit Payment Proof 
-            </button>
-
-        </form>
-
-
-        <!-- PAYMENT HISTORY DRAWER -->
-
+        <!-- ========== 2. PAYMENT HISTORY (opens and closes) ========== -->
         <details class="history-drawer" id="historyDrawer">
-
             <summary>
-                My Payment History
+                <span>My Payment History <span id="historyCount"></span></span>
             </summary>
 
-            <div class="history-content">
-
-                <div id="paymentProofList">
-
-                    <p class="no-payments">
-                        Loading payment history...
-                    </p>
-
-                </div>
-
+            <!-- Records are filled in by paymentReceipt.js -->
+            <div class="history-content" id="paymentProofList">
+                <p class="no-payments">Loading payment history...</p>
             </div>
-
         </details>
-
 
     </main>
 
-
-    
-<script src="paymentReceipt.js"></script>
+    <script src="paymentReceipt.js"></script>
 </body>
 </html>

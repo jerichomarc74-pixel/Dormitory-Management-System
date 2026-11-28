@@ -1,0 +1,396 @@
+/* =====================================================
+   dashboardAdmin.css  -  Dorm administrator dashboard
+   Light and dark modes (switch with the round button, bottom right)
+   Sections: 1 Colors  2 Base  3 Sidebar  4 Main + hero  5 Stat cards
+             6 Panels  7 Personnel  8 Buttons  9 Theme button
+             10 Tablet and phone
+   NOTE: script.js builds some of the lists and cards (rows, feed,
+   pcard...), so keep those class names when you edit.
+   ===================================================== */
+
+/* ---------- 1. Colors and fonts (from colorscheme.png) ---------- */
+:root {
+  /* brand colors: the same in both modes */
+  --navy: #1b2a8f;
+  --navy-deep: #101a5a;
+  --gold: #dba72c;
+  --cream: #fcf8ee;
+  --ink: #1c1b3c;
+  --red: #dc3a1f;
+  --white: #ffffff;
+
+  --font: "Segoe UI", Arial, sans-serif;
+  --sidebar-w: 280px;
+}
+
+/* LIGHT MODE (default): cream page, white cards */
+:root,
+[data-theme="light"] {
+  --bg: var(--cream);
+  --card: var(--white);
+  --card-line: rgba(28, 27, 60, .14);
+  --inner: var(--cream);                 /* cards inside cards */
+  --text: var(--ink);
+  --muted: #656580;
+  --num: var(--navy);
+  --icon-bg: var(--navy);
+  --icon-fg: var(--gold);
+  --btn-line: var(--navy);
+  --btn-text: var(--navy);
+  --btn-hover: rgba(27, 42, 143, .08);
+  --primary-bg: var(--navy);
+  --primary-text: var(--white);
+  --primary-hover: var(--gold);
+  --primary-hover-text: var(--navy-deep);
+  --status-bg: var(--gold);
+  --status-text: var(--navy-deep);
+  --focus: var(--navy);
+  --shadow: 0 8px 24px rgba(16, 26, 90, .14);
+}
+
+/* DARK MODE: deep navy surfaces, gold accents */
+[data-theme="dark"] {
+  --bg: #0a0f3a;
+  --card: #131b5a;
+  --card-line: rgba(252, 248, 238, .16);
+  --inner: rgba(255, 255, 255, .05);
+  --text: var(--cream);
+  --muted: #b9bbdc;
+  --num: var(--gold);
+  --icon-bg: var(--gold);
+  --icon-fg: var(--navy-deep);
+  --btn-line: var(--gold);
+  --btn-text: var(--cream);
+  --btn-hover: rgba(219, 167, 44, .16);
+  --primary-bg: var(--gold);
+  --primary-text: var(--navy-deep);
+  --primary-hover: var(--cream);
+  --primary-hover-text: var(--navy-deep);
+  --status-bg: rgba(219, 167, 44, .2);
+  --status-text: var(--gold);
+  --focus: var(--gold);
+  --shadow: 0 8px 24px rgba(0, 0, 0, .4);
+}
+
+/* ---------- 2. Base ---------- */
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  transition: background .2s, color .2s;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+svg {
+  width: 20px; height: 20px; flex: none;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 10px; }
+.sidebar :focus-visible, .hero :focus-visible { outline-color: var(--gold); }
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  padding: 10px 16px; border-radius: 10px;
+  background: var(--gold); color: var(--navy-deep); font-weight: 700;
+}
+.skip-link:focus { top: 12px; }
+
+.app { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+
+/* ---------- 3. Sidebar ---------- */
+.sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column;
+  padding: 28px 20px 18px;
+  color: var(--white);
+  background: linear-gradient(180deg, var(--navy), var(--navy-deep));
+  border-top: 4px solid var(--gold);
+}
+
+.brand {
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 4px 22px; margin-bottom: 18px;
+  border-bottom: 3px solid var(--gold);
+}
+.seal {
+  width: 62px; height: 62px; flex: none; border-radius: 50%;
+  border: 3px solid var(--gold); background: var(--white);
+}
+.brand-text { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.brand-text small { display: block; margin-top: 2px; font-weight: 600; font-size: .85rem; color: var(--gold); }
+
+.nav { display: flex; flex-direction: column; gap: 4px; }
+
+.nav-item {
+  position: relative;
+  display: flex; align-items: center; gap: 14px; width: 100%;
+  padding: 12px 14px;
+  border: 0; border-radius: 12px; background: none;
+  font-size: 1rem; font-weight: 600; text-align: left;
+  color: rgba(252, 248, 238, .82);
+  transition: background .2s, color .2s;
+}
+.nav-item:hover { color: var(--gold); background: rgba(255, 255, 255, .08); }
+.nav-item.active { color: var(--white); background: rgba(255, 255, 255, .14); }
+.nav-item.active::before {
+  content: ""; position: absolute; left: -8px; top: 10px; bottom: 10px;
+  width: 4px; border-radius: 4px; background: var(--gold);
+}
+
+.chev { margin-left: auto; width: 18px; height: 18px; transition: transform .2s; }
+.nav-toggle[aria-expanded="false"] .chev { transform: rotate(-90deg); }
+
+.submenu {
+  display: flex; flex-direction: column;
+  margin: 2px 0 6px 26px;
+  border-left: 2px solid rgba(219, 167, 44, .45);
+}
+.submenu[hidden] { display: none; }
+.submenu a {
+  padding: 10px 0 10px 22px;
+  font-size: .95rem; font-weight: 500;
+  color: rgba(252, 248, 238, .82);
+  border-radius: 0 10px 10px 0;
+}
+.submenu a:hover { color: var(--gold); background: rgba(255, 255, 255, .08); }
+
+.side-foot { margin-top: auto; padding-top: 24px; }
+.side-note {
+  margin: 14px 4px 0; padding-top: 14px;
+  border-top: 1px solid rgba(252, 248, 238, .25);
+  font-size: .8rem; color: rgba(252, 248, 238, .7);
+}
+
+/* ---------- 4. Main area + hero ---------- */
+.main { width: 100%; max-width: 1400px; padding: 36px 40px 90px; position: relative; }
+.menu-btn { display: none; }
+
+.section-title { margin: 30px 0 14px; font-size: 1.15rem; font-weight: 700; color: var(--text); }
+
+.eyebrow { font-size: .9rem; font-weight: 700; }
+.label { font-size: .85rem; font-weight: 600; }
+
+.hero {
+  position: relative; overflow: hidden;
+  padding: clamp(28px, 4vw, 44px) clamp(22px, 4vw, 48px);
+  color: var(--white);
+  background: linear-gradient(120deg, var(--navy) 20%, var(--navy-deep) 100%);
+  border-radius: 22px;
+  border-bottom: 5px solid var(--gold);
+  box-shadow: var(--shadow);
+}
+.hero::before, .hero::after {
+  content: ""; position: absolute; border-radius: 50%;
+  background: rgba(219, 167, 44, .1);
+}
+.hero::before { width: 360px; height: 360px; right: -40px; top: -140px; }
+.hero::after  { width: 160px; height: 160px; right: 220px; bottom: -80px; background: rgba(255, 255, 255, .06); }
+.hero > * { position: relative; z-index: 1; }
+
+.hero .eyebrow { color: var(--gold); margin-bottom: 10px; }
+.hero h1 {
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  line-height: 1.15; font-weight: 700;
+  padding-right: clamp(90px, 16vw, 170px);   /* keeps text clear of the seal */
+}
+
+.hero-meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-meta > span {
+  padding: 6px 16px; border-radius: 999px;
+  background: rgba(255, 255, 255, .12);
+  font-size: .95rem; color: var(--cream);
+}
+.hero-meta b { margin-left: 6px; color: var(--gold); font-weight: 700; }
+
+.hero-art {
+  position: absolute; z-index: 1;
+  right: clamp(18px, 4vw, 48px); top: 50%; transform: translateY(-50%);
+  width: clamp(72px, 12vw, 128px); height: clamp(72px, 12vw, 128px);
+  border-radius: 50%; border: 4px solid var(--gold); background: var(--white);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, .35);
+}
+
+/* ---------- 5. Stat cards ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-top: 5px solid var(--gold);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+a.card { transition: transform .15s, border-color .15s; }
+a.card:hover { transform: translateY(-3px); border-color: var(--gold); }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+.stat-main { padding: 26px 26px 22px; }
+.stat-icon {
+  width: 48px; height: 48px; margin-bottom: 16px; border-radius: 14px;
+  display: grid; place-items: center;
+  background: var(--icon-bg); color: var(--icon-fg);
+}
+.stat-main h3 { margin-bottom: 6px; font-size: 1.1rem; font-weight: 700; }
+
+.stat-small { padding: 22px 26px 20px; }
+.stat-small .label { margin-bottom: 8px; color: var(--muted); }
+
+.num { font-size: 2.6rem; font-weight: 700; line-height: 1.1; color: var(--num); }
+.stat-small .num { font-size: 2.1rem; }
+.stats p { margin-top: 4px; font-size: .95rem; color: var(--muted); }
+
+/* ---------- 6. Panels (students + announcements) ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; align-items: start; }
+
+.panel { padding: 28px; }
+.panel .label { color: var(--muted); }
+.panel h2 { margin: 4px 0 8px; font-size: 1.5rem; font-weight: 700; color: var(--text); }
+.lede { max-width: 54ch; color: var(--muted); font-size: 1rem; }
+.sub { margin: 22px 0 6px; }
+
+.rows, .feed { list-style: none; padding: 0; }
+.rows li {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px 0; border-top: 1px solid var(--card-line);
+}
+.rows li:first-child { border-top: 0; }
+.rows b { display: block; font-size: 1.05rem; font-weight: 700; }
+.rows small { color: var(--muted); font-size: .9rem; }
+.rows .empty-row { display: block; padding: 10px 0; color: var(--muted); font-size: .95rem; }
+
+.feed { margin-top: 16px; }
+.feed li { padding: 16px 0; border-top: 1px solid var(--card-line); }
+.feed li:first-child { border-top: 0; padding-top: 4px; }
+.feed .when { font-size: .8rem; font-weight: 600; color: var(--muted); }
+.feed .when i { display: inline-block; width: 5px; height: 5px; margin: 0 8px 2px; border-radius: 50%; background: var(--gold); }
+.feed h4 { margin: 6px 0 4px; font-size: 1.05rem; font-weight: 700; }
+.feed p { font-size: .95rem; opacity: .92; }
+
+/* ---------- 7. Personnel registrations ---------- */
+.personnel { margin-top: 18px; }
+.p-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+
+.pill-count {
+  display: inline-grid; place-items: center;
+  min-width: 32px; height: 32px; margin-left: 8px; padding: 0 8px;
+  border-radius: 999px; vertical-align: middle;
+  background: var(--gold); color: var(--navy-deep);
+  font-size: .95rem; font-weight: 700;
+}
+
+.pers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-top: 22px; }
+
+.pcard {
+  padding: 22px;
+  background: var(--inner);
+  border: 1px solid var(--card-line);
+  border-left: 5px solid var(--gold);
+  border-radius: 16px;
+}
+.pcard-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.pcard h4 { font-size: 1.15rem; font-weight: 700; }
+.status {
+  padding: 4px 12px; border-radius: 999px;
+  background: var(--status-bg); color: var(--status-text);
+  font-size: .8rem; font-weight: 700;
+}
+.pcard .when, .pcard .role { margin-top: 8px; font-size: .85rem; font-weight: 600; color: var(--muted); }
+.pcard .role i { display: inline-block; width: 5px; height: 5px; margin-right: 8px; border-radius: 50%; background: var(--gold); vertical-align: middle; }
+.pcard dl {
+  display: grid; grid-template-columns: auto 1fr; gap: 8px 16px;
+  margin: 14px 0; padding-bottom: 14px;
+  border-bottom: 1px solid var(--card-line);
+  font-size: .95rem;
+}
+.pcard dt { align-self: center; font-size: .85rem; font-weight: 600; color: var(--muted); }
+.pcard dd { margin: 0; overflow-wrap: anywhere; }
+.pcard label { display: block; margin-bottom: 8px; font-size: .95rem; font-weight: 700; }
+.pcard select {
+  width: 100%; margin-bottom: 14px; padding: 12px 14px;
+  font: inherit; color: var(--text); background: var(--card);
+  border: 2px solid var(--card-line); border-radius: 12px;
+}
+.pcard select:focus { border-color: var(--focus); outline: none; }
+.pcard select option { color: #111; }
+.pcard .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.pers-empty {
+  grid-column: 1 / -1; padding: 30px; text-align: center;
+  color: var(--muted); border: 2px dashed var(--card-line); border-radius: 16px;
+}
+
+/* ---------- 8. Buttons and tags ---------- */
+.btn {
+  display: inline-block; padding: 10px 22px;
+  border: 2px solid var(--btn-line); border-radius: 999px;
+  background: transparent; color: var(--btn-text);
+  font-size: .95rem; font-weight: 700;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.btn:hover { background: var(--btn-hover); }
+.btn.primary { background: var(--primary-bg); border-color: var(--primary-bg); color: var(--primary-text); }
+.btn.primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: var(--primary-hover-text); }
+.btn.sm { padding: 8px 18px; }
+.panel > .btn { margin-top: 18px; }
+
+.tag {
+  padding: 5px 14px; border: 2px solid var(--btn-line); border-radius: 999px;
+  font-size: .85rem; font-weight: 700; color: var(--btn-text);
+}
+
+/* ---------- 9. Light / dark button ---------- */
+.theme-btn {
+  position: fixed; right: 16px; bottom: 16px; z-index: 30;
+  width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--navy); color: var(--gold);
+  border: 3px solid var(--gold);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+}
+.theme-btn:hover { background: var(--gold); color: var(--navy-deep); }
+/* show the moon in light mode (click for dark) and the sun in dark mode */
+.theme-btn .icon-sun  { display: none; }
+[data-theme="dark"] .theme-btn .icon-sun  { display: block; }
+[data-theme="dark"] .theme-btn .icon-moon { display: none; }
+
+/* ---------- 10. Tablet and phone ---------- */
+@media (max-width: 1100px) {
+  .app { grid-template-columns: 1fr; }
+
+  .sidebar {
+    position: fixed; inset: 0 auto 0 0; z-index: 40;
+    width: 290px; max-width: 86vw;
+    transform: translateX(-100%);
+    transition: transform .2s;
+  }
+  .sidebar.open { transform: none; box-shadow: 0 0 0 100vmax rgba(16, 26, 90, .6); }
+
+  .menu-btn {
+    display: grid; place-items: center;
+    width: 46px; height: 46px; margin-bottom: 18px;
+    border-radius: 14px; background: var(--navy); color: var(--white);
+    border: 2px solid var(--gold);
+  }
+
+  .main { padding: 22px 18px 90px; }
+  .stats, .two-col { grid-template-columns: 1fr; }
+  .p-head { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .panel { padding: 22px 18px; }
+  .stat-main, .stat-small { padding-left: 20px; padding-right: 20px; }
+  .hero h1 { padding-right: 0; }
+  .hero-art { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* hide the date pill until script.js fills it in */
+.hero-meta > span:empty { display: none; }

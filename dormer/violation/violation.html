@@ -1,111 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Violations | Leyte Normal University Dormitory</title>
 
-    <title>Violations</title>
-
-    <style>
-        body {
-            background-color: #c4c9ed;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .violation-container {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
-
-        .violation-container h2 {
-            color: #304eaa;
-        }
-
-        .violation-container p {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            margin-top: 15px;
-        }
-
-        th {
-            background: #929bd6;
-            color: white;
-            padding: 12px;
-        }
-
-        td {
-            padding: 12px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-    </style>
-
+    <!-- All styling lives in violation.css -->
+    <link rel="stylesheet" href="violation.css">
 </head>
 
 <body>
 
-    <h1>Violations</h1>
+    <!-- ========== HEADER: logo + page title ========== -->
+    <header class="site-header">
+        <img class="logo" src="logo.jpg" alt="Leyte Normal University seal">
+        <div>
+            <h1>My Violations</h1>
+            <p class="subtitle">Dormitory Monitoring System</p>
+        </div>
+    </header>
 
-    <!-- OFFENSES -->
-    <section class="violation-container">
+    <main class="page">
 
-        <h2>Offenses</h2>
+        <!-- ========== 1. STATUS: a one-glance summary of the student's record ========== -->
+        <section id="status" class="status status-loading" aria-live="polite">
+            <p id="statusTitle" class="status-title">Checking your record...</p>
+            <p id="statusText" class="status-text"></p>
+            <button id="retryBtn" class="btn" type="button" hidden>Try again</button>
+        </section>
 
-        <p id="offenses">Loading...</p>
+        <!-- ========== 2. SUMMARY: offenses and absences ========== -->
+        <section class="summary" aria-label="Summary">
 
-    </section>
+            <article class="card">
+                <h2>Offenses</h2>
+                <p id="offenses" class="big-value">Loading...</p>
+                <p class="hint">Your most recent offense.</p>
+            </article>
 
-    <!-- ABSENT -->
-    <section class="violation-container">
+            <article class="card">
+                <h2>Absent</h2>
+                <p id="absent" class="big-value">Loading...</p>
+                <p class="hint">Your recorded absences.</p>
+            </article>
 
-        <h2>Absent</h2>
+        </section>
 
-        <p id="absent">Loading...</p>
+        <!-- ========== 3. CURFEW: table of curfew records ========== -->
+        <section class="card">
+            <h2>Curfew Records <span id="curfewCount" class="count"></span></h2>
+            <p class="hint">Dates and times of your recorded curfew violations.</p>
 
-    </section>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
 
-    <!-- CURFEW -->
-    <section class="violation-container">
+                    <!-- Rows are filled in by violation.js -->
+                    <tbody id="curfewRecords">
+                        <tr>
+                            <td colspan="2">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-        <h2>Curfew Records</h2>
+        <p class="footer-note">
+            Think a record is wrong? Please talk to your dorm manager.
+        </p>
 
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-
-            <tbody id="curfewRecords">
-
-                <tr>
-                    <td colspan="2">Loading...</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </section>
+    </main>
 
     <script src="violation.js"></script>
-
 </body>
 </html>

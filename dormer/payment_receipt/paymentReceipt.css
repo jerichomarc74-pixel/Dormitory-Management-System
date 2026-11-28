@@ -1,0 +1,212 @@
+/* =====================================================
+   paymentReceipt.css  -  Student payment page
+   Sections: 1 Colors  2 Page  3 Header  4 Cards  5 Upload form
+             6 Buttons  7 Payment history  8 Small screens
+   ===================================================== */
+
+/* ---------- 1. Colors and fonts (from colorscheme.png) ---------- */
+:root {
+  --navy: #1b2a8f;        /* headings, labels, main button, focus border */
+  --navy-deep: #101a5a;   /* gradient end, text on gold */
+  --gold: #dba72c;        /* card top border, logo ring, hover */
+  --cream: #fcf8ee;       /* card background */
+  --ink: #1c1b3c;         /* main text */
+  --muted: #656580;       /* secondary text */
+  --red: #dc3a1f;         /* errors, rejected */
+  --white: #ffffff;
+  --font: "Segoe UI", Arial, sans-serif;
+}
+
+/* ---------- 2. Page ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--navy), var(--navy-deep));
+  background-attachment: fixed;
+}
+
+.page {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+}
+
+/* ---------- 3. Header ---------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--navy-deep);
+  border-bottom: 3px solid var(--gold);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .35);
+  color: var(--white);
+}
+.site-header h1 { margin: 0; font-size: 1.5rem; }
+.subtitle { margin: 2px 0 0; color: var(--gold); font-weight: 600; }
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  background: var(--white);
+}
+
+.menu-btn {
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--white);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.menu-btn:hover { color: var(--gold); }
+
+/* ---------- 4. Cards ---------- */
+.card {
+  background: var(--cream);
+  border-top: 6px solid var(--gold);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+}
+.card h2 { margin: 0 0 6px; text-align: center; color: var(--navy); }
+.hint { margin: 0 0 20px; text-align: center; font-size: .92rem; color: var(--muted); }
+
+/* ---------- 5. Upload form ---------- */
+.upload-box {
+  padding: 22px;
+  text-align: center;
+  background: var(--white);
+  border: 2px dashed var(--navy);
+  border-radius: 14px;
+}
+.upload-box label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+input[type="file"] { display: block; margin: 12px auto; max-width: 100%; }
+
+.error { margin: 10px 0 0; font-weight: 700; color: var(--red); }
+
+.preview-container { margin-top: 18px; }
+.preview-container p { margin: 0 0 8px; color: var(--muted); }
+.preview-container img {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(28, 27, 60, .2);
+}
+
+.date-time {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: var(--white);
+  border-radius: 12px;
+}
+.date-time p { margin: 6px 0; }
+
+/* hidden attribute must win over the display rules above */
+[hidden] { display: none !important; }
+
+/* ---------- 6. Buttons ---------- */
+.btn {
+  padding: 14px 24px;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--navy);
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn:disabled:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.btn-block { display: block; width: 100%; margin-top: 20px; }
+.btn-small { padding: 6px 18px; font-size: .95rem; margin-top: 10px; border-radius: 999px; }
+
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.card :focus-visible { outline-color: var(--navy); }
+
+/* ---------- 7. Payment history ---------- */
+.history-drawer {
+  margin-top: 24px;
+  background: var(--cream);
+  border-top: 6px solid var(--gold);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+}
+
+/* the clickable title bar */
+.history-drawer summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--navy);
+  cursor: pointer;
+  list-style: none;
+}
+.history-drawer summary::-webkit-details-marker { display: none; }
+.history-drawer summary::after { content: "+"; font-size: 1.6rem; color: var(--gold); }
+.history-drawer[open] summary::after { content: "\2212"; }
+#historyCount { font-weight: 500; opacity: .85; }
+
+.history-content { padding: 16px; max-height: 480px; overflow-y: auto; }
+
+.payment-record {
+  margin-bottom: 14px;
+  padding: 14px;
+  background: var(--white);
+  border-left: 5px solid var(--gold);
+  border-radius: 12px;
+}
+.payment-record:last-child { margin-bottom: 0; }
+.payment-record img {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  background: var(--cream);
+  border-radius: 10px;
+}
+.payment-details p { margin: 8px 0 0; }
+
+.no-payments { margin: 0; padding: 20px; text-align: center; color: var(--muted); }
+
+/* status badge: pending = gold, verified = navy, rejected = red */
+.status-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 700;
+}
+.status-pending  { background: var(--gold); color: var(--navy-deep); }
+.status-verified { background: var(--navy); color: var(--white); }
+.status-rejected { background: var(--red);  color: var(--white); }
+.status-other    { background: var(--muted); color: var(--white); }
+
+/* ---------- 8. Small screens ---------- */
+@media (max-width: 480px) {
+  .page { padding: 18px 14px 32px; }
+  .card { padding: 18px; }
+  .site-header h1 { font-size: 1.25rem; }
+  .logo { width: 44px; height: 44px; }
+}

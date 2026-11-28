@@ -1,34 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dorm Administrator | Leyte Normal University</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<!-- All styling lives in dashboardAdmin.css -->
+<link rel="stylesheet" href="dashboardAdmin.css">
+
+<!-- Light / dark mode. Keep it here in the head so the page never flashes the wrong colors -->
+<script src="theme.js"></script>
 </head>
 <body>
+
+<!-- Lets keyboard users jump past the menu -->
+<a class="skip-link" href="#content">Skip to main content</a>
+
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- ========== SIDEBAR: logo, menu, settings ========== -->
   <aside class="sidebar" id="sidebar">
+
     <div class="brand">
-      <!-- Replace with <img src="lnu-seal.png" alt="LNU seal"> -->
-      <div class="seal" aria-hidden="true">LNU</div>
-      <div class="brand-text">Leyte Normal University<br>Dorm Administrator</div>
+      <img class="seal" src="logo.jpg" alt="Leyte Normal University seal">
+      <div class="brand-text">
+        Leyte Normal University
+        <small>Dorm Administrator</small>
+      </div>
     </div>
 
     <nav class="nav" aria-label="Main">
-      <a href="#" class="nav-item active" aria-current="page">
-        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Home
+      <a href="dashboardAdmin.html" class="nav-item active" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Home
       </a>
 
+      <!-- "Manage" opens and closes its sub-menu -->
       <button class="nav-item nav-toggle" id="manageToggle" aria-expanded="true" aria-controls="manageMenu" type="button">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg>
         Manage
-        <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        <svg class="chev" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="submenu" id="manageMenu">
         <a href="../manage_accounts/managing/manage_accounts.html">Manage Students</a>
@@ -38,81 +48,92 @@
       </div>
 
       <a href="../attendance/attendance.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg>Attendance
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg>Attendance
       </a>
       <a href="../announcements/announcements.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M4 9v6h3l6 4V5L7 9H4zM17 9a4 4 0 010 6"/></svg>Announcements
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9v6h3l6 4V5L7 9H4zM17 9a4 4 0 010 6"/></svg>Announcements
       </a>
     </nav>
 
     <div class="side-foot">
       <a href="#" class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>Settings
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>Settings
       </a>
       <a href="../../login/login.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>Sign out
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>Sign out
       </a>
       <p class="side-note">Dorm Administrator workspace<br>&copy; 2026 Leyte Normal University</p>
     </div>
   </aside>
 
-  <!-- MAIN -->
-  <main class="main">
+  <!-- ========== MAIN AREA ========== -->
+  <main class="main" id="content">
+
+    <!-- Menu button (only on tablets and phones) -->
     <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 
-    <!-- HERO -->
-    <section class="hero">
+    <!-- 1. WELCOME BANNER -->
+    <section class="hero" aria-labelledby="welcome-title">
       <p class="eyebrow">Dorm Administrator Dashboard</p>
-      <h1>Welcome, <span id="adminName">Demo</span><br>Dorm Administrator</h1>
+      <h1 id="welcome-title">Welcome, <span id="adminName">Demo</span><br>Dorm Administrator</h1>
       <p class="hero-meta">
         <span id="today"></span>
         <span>Pending registrations <b id="heroReg">0</b></span>
         <span>Pending personnel <b id="heroPers">0</b></span>
       </p>
+      <img class="hero-art" src="logo.jpg" alt="">
     </section>
 
-    <!-- STAT CARDS -->
-    <section class="stats">
+    <!-- 2. OVERVIEW CARDS (each one links to its page) -->
+    <h2 class="section-title">Overview</h2>
+    <section class="stats" aria-label="Overview">
+
       <a class="card stat-main" href="../manage_accounts/managing/manage_accounts.html">
-        <span class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg></span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg></span>
         <h3>Manage Students</h3>
         <div class="num" id="statManage">0</div>
         <p id="statManageSub"></p>
       </a>
-      <a class="card stat-main" href="#">
-        <span class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg></span>
+
+      <a class="card stat-main" href="../attendance/attendance.html">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg></span>
         <h3>Attendance</h3>
         <div class="num" id="statAttend">0</div>
         <p>Dormers present today</p>
       </a>
-      <a class="card stat-main" href="#">
-        <span class="stat-icon"><svg viewBox="0 0 24 24"><path d="M4 9v6h3l6 4V5L7 9H4zM17 9a4 4 0 010 6"/></svg></span>
+
+      <a class="card stat-main" href="../announcements/announcements.html">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9v6h3l6 4V5L7 9H4zM17 9a4 4 0 010 6"/></svg></span>
         <h3>Announcements</h3>
         <div class="num" id="statAnn">0</div>
         <p>Recent posts &middot; write a new one</p>
       </a>
 
-      <a class="card stat-small" href="#">
+      <a class="card stat-small" href="../manage_accounts/proof_of_payment/proof_of_payment.html">
         <h3 class="label">Proof of payment</h3>
         <div class="num" id="statProof">0</div>
         <p>Proofs waiting to be recorded</p>
       </a>
-      <a class="card stat-small" href="#">
+
+      <a class="card stat-small" href="../manage_accounts/room_management/room-management.html">
         <h3 class="label">Room management</h3>
         <div class="num" id="statRooms">0</div>
         <p id="statRoomsSub"></p>
       </a>
-      <a class="card stat-small" href="#">
+
+      <a class="card stat-small" href="../manage_accounts/managing/manage_accounts.html">
         <h3 class="label">Enrolled dormers</h3>
         <div class="num" id="statEnrolled">0</div>
         <p>Students placed in a room</p>
       </a>
+
     </section>
 
-    <!-- STUDENTS + ANNOUNCEMENTS -->
+    <!-- 3. STUDENTS + ANNOUNCEMENTS -->
     <section class="two-col">
+
       <div class="card panel">
         <p class="label">Admissions</p>
         <h2>Manage Students</h2>
@@ -124,18 +145,19 @@
         <p class="label sub">Validated, not yet enrolled</p>
         <ul class="rows" id="validatedList"></ul>
 
-        <a class="btn ghost" href="../manage_accounts/managing/manage_accounts.html">Open Manage Students</a>
+        <a class="btn" href="../manage_accounts/managing/manage_accounts.html">Open Manage Students</a>
       </div>
 
       <div class="card panel">
         <p class="label">Notice board</p>
         <h2>Latest Announcements</h2>
         <ul class="feed" id="annList"></ul>
-        <a class="btn ghost" href="#">Post an announcement</a>
+        <a class="btn" href="../announcements/announcements.html">Post an announcement</a>
       </div>
+
     </section>
 
-    <!-- PERSONNEL -->
+    <!-- 4. PERSONNEL REGISTRATIONS -->
     <section class="card panel personnel">
       <div class="p-head">
         <div>
@@ -143,16 +165,22 @@
           <h2>Personnel registrations <span class="pill-count" id="persCount">0</span></h2>
           <p class="lede">Approving creates a staff account. They sign in with the email and password they registered.</p>
         </div>
-        <button class="btn ghost" id="refreshBtn" type="button">Refresh</button>
+        <button class="btn" id="refreshBtn" type="button">Refresh</button>
       </div>
+
+      <!-- script.js fills this with one card per registration -->
       <div class="pers-grid" id="persList"></div>
     </section>
 
-    <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <!-- LIGHT / DARK BUTTON (handled by theme.js) -->
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
     </button>
+
   </main>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>

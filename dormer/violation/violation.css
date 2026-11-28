@@ -1,0 +1,146 @@
+/* =====================================================
+   violation.css  -  Student violations page
+   Sections: 1 Colors  2 Page  3 Header  4 Status
+             5 Cards   6 Table  7 Button  8 Small screens
+   ===================================================== */
+
+/* ---------- 1. Colors and fonts (from colorscheme.png) ---------- */
+:root {
+  --navy: #1b2a8f;        /* headings, labels, main button */
+  --navy-deep: #101a5a;   /* gradient end, text on gold */
+  --gold: #dba72c;        /* card top border, logo ring, hover */
+  --cream: #fcf8ee;       /* card background */
+  --ink: #1c1b3c;         /* main text */
+  --muted: #656580;       /* secondary text */
+  --red: #dc3a1f;         /* needs attention */
+  --white: #ffffff;
+  --font: "Segoe UI", Arial, sans-serif;
+}
+
+/* ---------- 2. Page ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--navy), var(--navy-deep));
+  background-attachment: fixed;
+}
+
+.page {
+  max-width: 760px;       /* keeps lines readable on wide screens */
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+/* ---------- 3. Header (logo + title) ---------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--navy-deep);
+  border-bottom: 3px solid var(--gold);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .35);
+  color: var(--white);
+}
+.site-header h1 { margin: 0; font-size: 1.5rem; }
+.subtitle { margin: 2px 0 0; color: var(--gold); font-weight: 600; }
+
+.logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  background: var(--white);
+}
+
+/* ---------- 4. Status banner ---------- */
+.status {
+  background: var(--cream);
+  border-left: 8px solid var(--muted);   /* color changes with the status */
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.status-title { margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--ink); }
+.status-text  { margin: 6px 0 0; color: var(--muted); }
+.status-text:empty { display: none; }
+
+.status-clear     { border-left-color: var(--gold); }
+.status-clear .status-title { color: var(--navy); }
+
+.status-attention,
+.status-error     { border-left-color: var(--red); }
+.status-attention .status-title,
+.status-error .status-title { color: var(--red); }
+
+/* ---------- 5. Cards ---------- */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: var(--cream);
+  border-top: 6px solid var(--gold);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+}
+.card h2 { margin: 0 0 8px; font-size: 1.1rem; color: var(--navy); }
+
+.big-value { margin: 0; font-size: 1.6rem; font-weight: 700; overflow-wrap: anywhere; }
+.hint      { margin: 6px 0 0; font-size: .9rem; color: var(--muted); }
+.count     { font-weight: 500; color: var(--muted); }
+
+.footer-note { margin: 24px 0 0; text-align: center; color: var(--white); opacity: .85; }
+
+/* ---------- 6. Curfew table ---------- */
+.table-wrap { overflow-x: auto; margin-top: 14px; }   /* scrolls on tiny screens */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+}
+th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 12px;
+  border-bottom: 3px solid var(--gold);
+}
+td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid rgba(28, 27, 60, .2);
+}
+tbody tr:nth-child(even) td { background: var(--cream); }
+
+/* ---------- 7. Button ---------- */
+.btn {
+  margin-top: 12px;
+  padding: 8px 20px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--navy);
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+.btn[hidden] { display: none; }
+
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+/* ---------- 8. Small screens ---------- */
+@media (max-width: 480px) {
+  .site-header h1 { font-size: 1.25rem; }
+  .logo { width: 48px; height: 48px; }
+  .page { padding: 16px 14px 32px; }
+}
